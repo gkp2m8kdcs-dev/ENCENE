@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ENCENE — Smart Stock Tracking for Global Investors</title>
+<meta name="description" content="ENCENE (formerly JdyStock Pro) is a privacy-first iOS app for tracking stocks across U.S. and Hong Kong markets, with portfolios, trade journals, dividend projections, and powerful analytics." />
+<meta name="theme-color" content="#0a2540" />
+<link rel="icon" type="image/png" href="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=ENCENE%20app%20icon%2C%20minimal%20blue%20green%20gradient%20circle%20with%20white%20chart%20line%20uptrend%20icon%2C%20flat%20design%2C%20no%20text&image_size=square" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f5f7fb;
+    --bg-dark: #0a2540;
+    --text: #0a2540;
+    --text-soft: #4a5568;
+    --muted: #7a869a;
+    --accent: #1a8cf0;
+    --accent-2: #20c997;
+    --border: #e6ebf2;
+    --shadow: 0 8px 30px rgba(10, 37, 64, 0.08);
+    --radius: 14px;
+    --maxw: 1080px;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  /* Nav */
+  header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .brand-mark {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 14px;
+  }
+  nav.links a {
+    color: var(--text);
+    margin-left: 22px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  nav.links a:hover { color: var(--accent); text-decoration: none; }
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    background: radial-gradient(1200px 600px at 80% -10%, rgba(32,201,151,0.10), transparent 60%),
+                radial-gradient(1000px 500px at 0% 0%, rgba(26,140,240,0.10), transparent 60%),
+                linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    margin: 0 0 16px;
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .hero p.lead {
+    margin: 0 0 28px;
+    color: var(--text-soft);
+    font-size: 18px;
+    max-width: 560px;
+  }
+  .cta-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white;
+    box-shadow: 0 8px 24px rgba(26,140,240,0.30);
+  }
+  .btn-primary:hover { transform: translateY(-1px); text-decoration: none; }
+  .btn-ghost {
+    background: white;
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .badges {
+    margin-top: 22px;
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white;
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--text-soft);
+  }
+  .hero-art {
+    position: relative;
+    aspect-ratio: 1/1;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .hero-art img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Sections */
+  section {
+    padding: 72px 0;
+  }
+  section.alt { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .section-head h2 {
+    margin: 0 0 10px;
+    font-size: clamp(26px, 3.4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .section-head p {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 17px;
+  }
+  /* Features grid */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .feature:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .feature .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(26,140,240,0.12), rgba(32,201,151,0.12));
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-size: 22px;
+  }
+  .feature h3 { margin: 0 0 6px; font-size: 17px; }
+  .feature p { margin: 0; color: var(--text-soft); font-size: 14px; }
+  /* Showcase */
+  .showcase {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .shot {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: white;
+    box-shadow: var(--shadow);
+    aspect-ratio: 9/16;
+  }
+  .shot img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  /* Pricing / promise */
+  .promise {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .promise-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    text-align: center;
+  }
+  .promise-item .num {
+    font-size: 28px; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .promise-item .label { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
+  /* CTA */
+  .cta-band {
+    background: linear-gradient(135deg, var(--bg-dark), #10355c);
+    color: white;
+    border-radius: 20px;
+    padding: 48px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .cta-band h2 { margin: 0 0 10px; font-size: 30px; }
+  .cta-band p { margin: 0 0 22px; opacity: 0.85; }
+  .cta-band a.btn-ghost { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.25); }
+  .cta-band a.btn-ghost:hover { background: rgba(255,255,255,0.18); }
+  /* Footer */
+  footer {
+    background: var(--bg-dark);
+    color: #cbd5e1;
+    padding: 40px 0 24px;
+    margin-top: 60px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+  footer h4 { color: white; margin: 0 0 12px; font-size: 14px; letter-spacing: 0.4px; }
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer ul li { margin-bottom: 8px; font-size: 14px; }
+  footer a { color: #cbd5e1; }
+  footer a:hover { color: white; }
+  .copyright {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 18px;
+    font-size: 13px;
+    color: #94a3b8;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .features { grid-template-columns: 1fr 1fr; }
+    .showcase { grid-template-columns: 1fr 1fr; }
+    .promise { grid-template-columns: 1fr 1fr; }
+    .foot-grid { grid-template-columns: 1fr; }
+    nav.links a { margin-left: 14px; }
+  }
+  @media (max-width: 560px) {
+    .features { grid-template-columns: 1fr; }
+    .showcase { grid-template-columns: 1fr; }
+    .promise { grid-template-columns: 1fr; }
+    .cta-band { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="ENCENE home">
+      <span class="brand-mark">E</span>
+      <span>ENCENE</span>
+    </a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">For global investors</span>
+      <h1>Track every position.<br/>Master every market.</h1>
+      <p class="lead">ENCENE is a privacy-first iOS app for serious investors. Track portfolios across U.S. and Hong Kong markets, log every trade with photos and notes, project dividend income, and analyze performance — all without an account.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://apps.apple.com" target="_blank" rel="noopener">Download on the App Store</a>
+        <a class="btn btn-ghost" href="support.html">Contact Support</a>
+      </div>
+      <div class="badges">
+        <span class="badge">Privacy-first • No account required</span>
+        <span class="badge">U.S. &amp; Hong Kong markets</span>
+        <span class="badge">8 currencies supported</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Premium%20iPhone%20stock%20portfolio%20app%20screen%20floating%20in%20soft%20light%2C%20clean%20white%20and%20light%20gray%20background%2C%20blue%20and%20teal%20gradient%20accents%2C%20candlestick%20chart%2C%20portfolio%20positions%2C%20modern%20flat%20design%2C%20soft%20shadow%2C%20photorealistic%20render&image_size=portrait_4_3" alt="ENCENE app preview showing portfolio and chart" />
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <h2>Everything a serious investor needs</h2>
+      <p>From the first watchlist entry to the final P&amp;L report, ENCENE gives you professional-grade tools that stay private to you.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Real-time candlestick charts</h3>
+        <p>Interactive K-line charts with zoomable history so you can time entries with confidence.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Multi-currency portfolio</h3>
+        <p>Track positions across U.S. and Hong Kong markets with 8 currencies and automatic conversion.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Trade journal with photos</h3>
+        <p>Attach receipts, charts, and notes to every transaction. Build a complete audit trail.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Position sizing calculator</h3>
+        <p>Risk-based sizing tools help you size every trade consistently with your strategy.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Dividend income projection</h3>
+        <p>See projected annual dividend income from your holdings at a glance.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Trade analytics</h3>
+        <p>Win rate, expectancy, and sector heatmaps help you understand where you make money.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⭐</div>
+        <h3>Watchlist that syncs</h3>
+        <p>Track stocks before you buy them and monitor your shortlist across market sessions.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Privacy by design</h3>
+        <p>All data stays on your device by default. No login, no tracking, no analytics.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">��</div>
+        <h3>Market news</h3>
+        <p>Curated headlines help you stay informed without the noise of a full news feed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Designed for clarity, built for performance</h2>
+      <p>A focused interface that respects your time. Every screen is designed to get you to the answer faster.</p>
+    </div>
+    <div class="showcase">
+      <div class="shot"><img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=iPhone%20app%20screenshot%20of%20stock%20portfolio%20list%20in%20clean%20modern%20UI%2C%20white%20background%2C%20blue%20accents%2C%20green%20and%20red%20P&L%20numbers%2C%20flat%20design%2C%20photorealistic%20render&image_size=portrait_4_3" alt="Portfolio screen preview" loading="lazy" /></div>
+      <div class="shot"><img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=iPhone%20app%20screenshot%20of%20candlestick%20stock%20chart%20in%20clean%20modern%20UI%2C%20dark%20mode%2C%20blue%20and%20green%20candles%2C%20flat%20design%2C%20photorealistic%20render&image_size=portrait_4_3" alt="K-line chart preview" loading="lazy" /></div>
+      <div class="shot"><img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=iPhone%20app%20screenshot%20of%20trade%20journal%20entry%20form%20with%20photo%20attachment%20in%20clean%20modern%20UI%2C%20white%20background%2C%20blue%20accents%2C%20flat%20design%2C%20photorealistic%20render&image_size=portrait_4_3" alt="Trade journal preview" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <h2>Built on trust</h2>
+      <p>No accounts. No ads. No selling your data. Your portfolio is your business.</p>
+    </div>
+    <div class="promise">
+      <div class="promise-item">
+        <div class="num">0</div>
+        <div class="label">Personal accounts required</div>
+      </div>
+      <div class="promise-item">
+        <div class="num">0</div>
+        <div class="label">Third-party trackers</div>
+      </div>
+      <div class="promise-item">
+        <div class="num">8</div>
+        <div class="label">Currencies supported</div>
+      </div>
+      <div class="promise-item">
+        <div class="num">2</div>
+        <div class="label">Major markets covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to take control of your portfolio?</h2>
+      <p>Download ENCENE and start tracking your trades like a professional — for free.</p>
+      <a class="btn btn-primary" href="https://apps.apple.com" target="_blank" rel="noopener">Download on the App Store</a>
+      <a class="btn btn-ghost" href="support.html" style="margin-left:8px;">Get support</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html" style="color:white;">
+          <span class="brand-mark">E</span>
+          <span>ENCENE</span>
+        </a>
+        <p style="margin-top:12px; max-width:340px; font-size:14px;">A privacy-first iOS app for global investors who want clean, fast, and trustworthy portfolio tools.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="https://apps.apple.com" target="_blank" rel="noopener">Download</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="mailto:mahalingamhjk9@icloud.com">mahalingamhjk9@icloud.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© 2026 ENCENE. All rights reserved.</span>
+      <span>Made for serious investors.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
